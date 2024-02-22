@@ -26,17 +26,40 @@ function App() {
     },2000)
   }
 
-  function toggleMode() {
+  let removeBgClasses = ()=>{
+    document.body.classList.remove('bg-danger');
+    document.body.classList.remove('bg-success');
+    document.body.classList.remove('bg-warning');
+    document.body.classList.remove('bg-primary');
+    document.body.classList.remove('bg-light');
+    document.body.classList.remove('bg-dark');
+  }
+
+  function toggleMode(cls) {
+    console.log(cls);
+    removeBgClasses();
+    
+    if(cls==='dark')
+      document.body.style.backgroundColor = '#172150';
+    else
+      document.body.classList.add('bg-'+cls);
+
+    showAlert(cls+" Mode has been enabled","success");
+      //document.title = "TextUtils - Dark mode enabled";
+    
+  }
+
+  function toggleModeOld() {
     if (mode === 'light') {
       SetMode('dark');
       document.body.style.backgroundColor = '#172150';
       showAlert("Dark Mode has been enabled","success");
-      document.title = "TextUtils - Dark mode enabled";
+      //document.title = "TextUtils - Dark mode enabled";
     } else {
       SetMode('light');
       document.body.style.backgroundColor = 'white';
       showAlert("Light Mode has been enabled","success");
-      document.title = "TextUtils - Light mode enabled";
+      //document.title = "TextUtils - Light mode enabled";
     }
   }
 
@@ -44,7 +67,7 @@ function App() {
   return (
       <>
       <Router>
-      <Navbar title="TextUtils" mode={mode} toggleMode={toggleMode}/>
+      <Navbar title="TextUtils" mode={mode} toggleMode={toggleMode} toggleModeOld={toggleModeOld}/>
       <Alert alert={alert} />
         <Routes>
           <Route path="/about" element={<About/>}>
